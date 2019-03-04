@@ -22,14 +22,14 @@ body {
 }
 
 #zeroescape-rabbit {
-    background: url('../images/rabbit.png');
-    background-size: contain;
+    background: url('../images/rabbit.svg');
     background-repeat: no-repeat;
-    height: 7%;
-    width: 5%;
+    background-size: contain;
+    height: 40px;
+    width: 33px;
     position: absolute;
     left: 20%;
-    top: 14.5%;
+    top: 20%;
 }
 
 /**
@@ -39,15 +39,15 @@ battery
     height: 5%;
     width: 11%;
     position: absolute;
-    top: 15%;
-    left: 28%;
+    top: 22%;
+    left: 30%;
 }
 
 #battery-rec {
     position: absolute;
     width: 90%;
     height: 90%;
-    border: solid 2px white;
+    border: solid 2px #fff;
 }
 
 #battery-fill {
@@ -72,7 +72,6 @@ string day & month
 #str-day {
     font-size: 1.3em;
     color: #40e2f4;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.9);
     width: auto;
     float: right;
 }
@@ -84,7 +83,7 @@ hour&minutes
 .rec-time-wrapper {
     text-align: right;
     position: absolute;
-    top: 22%;
+    top: 21%;
     right: 20%;
 }
 
@@ -125,7 +124,7 @@ zeroescape
     position: absolute;
     height: 228px;
     width: 175px;
-    top: 29%;
+    top: 32%;
     margin: 0 auto;
     left: 0;
     right: 0;
@@ -147,24 +146,6 @@ zeroescape
     width: 100%;
     text-align: center;
     color: #40e2f4;
-    top: 30%;
+    top: 33%;
     opacity: 0.8;
-}
-
-@media screen and (-tizen-geometric-shape: circle) {
-    #str-hours {
-       font-size: 600%;
-    }
-
-    #str-console {
-       font-size: 600%;
-    }
-
-    #str-minutes {
-       font-size: 600%;
-    }
-
-    #rec-string-time {
-       left: 80px;
-    }
 }
