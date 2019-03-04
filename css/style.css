@@ -21,12 +21,26 @@ body {
     overflow: hidden;
 }
 
+#zeroescape-rabbit {
+    background: url('../images/rabbit.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 7%;
+    width: 5%;
+    position: absolute;
+    left: 20%;
+    top: 14.5%;
+}
+
+/**
+battery
+ */
 #battery {
     height: 5%;
     width: 11%;
     position: absolute;
-    top: 5%;
-    left: 13%;
+    top: 15%;
+    left: 28%;
 }
 
 #battery-rec {
@@ -44,32 +58,19 @@ body {
     background-color: #40e2f4;
 }
 
-#zeroescape-rabbit {
-    background: url('../images/rabbit.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 7%;
-    width: 5%;
-    position: absolute;
-    left: 5%;
-    top: 4.5%;
-}
-
 /*
 string day & month
 */
 
 #rec-string-time {
     position: absolute;
-    height: 30%;
-    top: 5%;
-    right: 5%;
+    top: 15%;
+    right: 20%;
     text-align: right;
-    width: 100%;
 }
 
 #str-day {
-    font-size: 125%;
+    font-size: 1.3em;
     color: #40e2f4;
     border-bottom: 2px solid rgba(255, 255, 255, 0.9);
     width: auto;
@@ -81,16 +82,15 @@ hour&minutes
 */
 
 .rec-time-wrapper {
-    width: 100%;
     text-align: right;
     position: absolute;
-    top: 12%;
-    right: 5%;
+    top: 22%;
+    right: 20%;
 }
 
 #rec-time {
     color: #40e2f4;
-    font-size: 250%;
+    font-size: 2.5em;
     display: inline-block;
 }
 
@@ -119,13 +119,35 @@ hour&minutes
 /*
 zeroescape
  */
+#zeroescape-skull {
+    background-image: url('../images/skull.png');
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 228px;
+    width: 175px;
+    top: 29%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    opacity: 0;
+            transition: opacity 2s ease-in-out;
+         -o-transition: opacity 2s ease-in-out;
+       -moz-transition: opacity 2s ease-in-out;
+    -webkit-transition: opacity 2s ease-in-out;
+}
+
+#zeroescape-skull.visible {
+    opacity: .5;
+
+}
+
 #zeroescape {
-    font-size: 2000%;
+    font-size: 1700%;
     position: absolute;
     width: 100%;
     text-align: center;
     color: #40e2f4;
-    top: 20%;
+    top: 30%;
     opacity: 0.8;
 }
 

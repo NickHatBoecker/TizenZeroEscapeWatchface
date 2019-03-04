@@ -88,10 +88,16 @@
             strAmpm = document.getElementById("str-ampm"),
             datetime = tizen.time.getCurrentDateTime(),
             hour = datetime.getHours(),
-            minute = datetime.getMinutes();
+            minute = datetime.getMinutes(),
+            use24HourFormat = true;
 
-        hour = hour % 12;
-        hour = hour ? hour : 12; // hour 0 is always 12
+        toggleZeroEscapeSkull(parseInt(hour));
+
+        if (!use24HourFormat) {
+            hour = hour % 12;
+            hour = hour ? hour : 12; // hour 0 is always 12
+
+        }
 
         if (hour < 12) {
             strAmpm.innerHTML = "AM";
@@ -166,15 +172,57 @@
     }
 
     /**
+     * Update zero escape digit 0-9
+     */
+    function changeZeroEscapeDigit() {
+        var zeroEscapeDigit = parseInt(document.getElementById('zeroescape').innerText);
+        if (zeroEscapeDigit === 9) {
+            zeroEscapeDigit = 0;
+        } else {
+            zeroEscapeDigit++;
+        }
+
+        // Save chosen digit
+        localStorage.setItem('nhb_zeroescape-digital-watch.digit', zeroEscapeDigit);
+
+        document.getElementById('zeroescape').innerText = zeroEscapeDigit;
+    }
+
+    function updateZeroEscapeDigit() {
+        var zeroEscapeDigit = localStorage.getItem('nhb_zeroescape-digital-watch.digit');
+        if (zeroEscapeDigit) {
+            document.getElementById('zeroescape').innerText = zeroEscapeDigit;
+        }
+    }
+
+    /**
+     * Show skull from 0 to 1 am.
+     * @param hour
+     */
+    function toggleZeroEscapeSkull(hour) {
+        var zeroEscapeSkull = document.getElementById('zeroescape-skull');
+
+        setTimeout(function () {
+            if (hour) {
+                zeroEscapeSkull.classList.remove('visible');
+            } else {
+                zeroEscapeSkull.classList.add('visible');
+            }
+        }, 2000);
+    }
+
+    /**
      * Binds events.
      * @private
      */
     function bindEvents() {
-        // add eventListener for battery state
-        battery.addEventListener("chargingchange", getBatteryState);
-        battery.addEventListener("chargingtimechange", getBatteryState);
-        battery.addEventListener("dischargingtimechange", getBatteryState);
-        battery.addEventListener("levelchange", getBatteryState);
+        if (typeof battery !== 'undefined') {
+            // add eventListener for battery state
+            battery.addEventListener("chargingchange", getBatteryState);
+            battery.addEventListener("chargingtimechange", getBatteryState);
+            battery.addEventListener("dischargingtimechange", getBatteryState);
+            battery.addEventListener("levelchange", getBatteryState);
+        }
 
         // add eventListener for timetick
         window.addEventListener("timetick", ambientDigitalWatch);
@@ -190,7 +238,10 @@
         });
 
         // add event listeners to update watch screen when the time zone is changed.
-        tizen.time.setTimezoneChangeListener(updateWatch);
+        // tizen.time.setTimezoneChangeListener(updateWatch);
+
+        var zeroEscapeDigit = document.getElementById('zeroescape-rabbit');
+        zeroEscapeDigit.addEventListener("click", changeZeroEscapeDigit);
     }
 
     /**
@@ -201,6 +252,7 @@
     function init() {
         initDigitalWatch();
         updateDate(0);
+        updateZeroEscapeDigit();
 
         bindEvents();
     }
