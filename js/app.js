@@ -18,7 +18,6 @@
     var timerUpdateDate = 0,
         flagConsole = false,
         flagDigital = false,
-        battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery,
         interval,
         arrDay = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
@@ -152,14 +151,32 @@
     /**
      * Gets battery state.
      * Updates battery level.
+     *
+     * @TODO maybe show skull when low battery?
+     *
      * @private
      */
     function getBatteryState() {
-        var batteryLevel = Math.floor(battery.level * 10),
-            batteryFill = document.getElementById("battery-fill");
+        navigator.getBattery().then(function(battery) {
+            var batteryLevel = Math.floor(battery.level * 100);
+            var batteryFill = document.getElementById("battery-fill");
+            var batteryText = document.getElementById("battery-text");
 
-        batteryLevel = batteryLevel + 1;
-        batteryFill.style.width = batteryLevel + "%";
+            batteryFill.style.width = batteryLevel + "%";
+            batteryText.innerText = batteryLevel + "%";
+
+            if (batteryLevel <= 17) {
+                batteryText.classList.add('bc-danger');
+            } else {
+                batteryText.classList.remove('bc-danger');
+            }
+
+            if (battery.charging) {
+                // @TODO show lightning icon
+            } else {
+                // @TODO hidelightning icon
+            }
+        });
     }
 
     /**
@@ -216,13 +233,15 @@
      * @private
      */
     function bindEvents() {
-        if (typeof battery !== 'undefined') {
+        navigator.getBattery().then(function(battery) {
             // add eventListener for battery state
             battery.addEventListener("chargingchange", getBatteryState);
             battery.addEventListener("chargingtimechange", getBatteryState);
             battery.addEventListener("dischargingtimechange", getBatteryState);
             battery.addEventListener("levelchange", getBatteryState);
-        }
+
+            getBatteryState(battery); // Init
+        });
 
         // add eventListener for timetick
         window.addEventListener("timetick", ambientDigitalWatch);
